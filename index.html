@@ -24,33 +24,50 @@
       color: red;
     }
 
-    .btn {
+    .top-btn {
       display: inline-block;
-      margin: 15px;
-      padding: 15px 30px;
+      margin: 10px;
+      padding: 12px 25px;
       background: red;
       color: #fff;
       text-decoration: none;
       border-radius: 8px;
-      font-size: 18px;
+      font-size: 16px;
+      cursor: pointer;
     }
 
-    section {
-      padding: 30px;
+    .section {
+      display: none;
+      padding: 20px;
+      text-align: left;
+      max-width: 600px;
+      margin: 0 auto;
+      background: #111;
+      border-radius: 8px;
+      margin-bottom: 20px;
     }
 
-    /* ===== ANÚNCIO ===== */
+    h2 {
+      color: #ff4500;
+    }
+
+    .btn-download {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 10px 20px;
+      background: orange;
+      color: #000;
+      border-radius: 6px;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
     .anuncio {
       background: #111;
       margin: 20px;
       padding: 15px;
       border-radius: 8px;
-    }
-
-    .anuncio p {
-      font-size: 12px;
-      color: #aaa;
-      margin-bottom: 10px;
+      text-align: center;
     }
 
     .anuncio img {
@@ -65,12 +82,15 @@
     }
   </style>
 </head>
-
 <body>
 
 <header>
   <h1>📺 AngoTV</h1>
   <p>Entretenimento angolano onde estiver</p>
+  <div>
+    <button class="top-btn" onclick="showSection('pro')">Planos Pro</button>
+    <button class="top-btn" onclick="showSection('gratis')">Planos Grátis</button>
+  </div>
 </header>
 
 <!-- ANÚNCIO -->
@@ -81,14 +101,40 @@
   </a>
 </div>
 
-<section>
-  <a href="#" class="btn">Ver Conteúdos</a>
-  <a href="#" class="btn">Comprar Pacote</a>
-</section>
+<!-- SEÇÃO PLANOS PRO -->
+<div id="pro" class="section">
+  <h2>Planos Pro</h2>
+  <ul>
+    <li><b>1.500 kz/mês</b> → Offline 30 dias, download diário, 1GB, até 3 pacotes de 50 vídeos.</li>
+    <li><b>3.000 kz/mês</b> → Offline 30 dias, download diário, 5GB, até 20 pacotes de 50 vídeos.</li>
+  </ul>
+  <button class="btn-download" onclick="alert('Simulação: baixar pacote diário')">Baixar Pacote Diário</button>
+</div>
+
+<!-- SEÇÃO PLANOS GRÁTIS -->
+<div id="gratis" class="section">
+  <h2>Planos Grátis</h2>
+  <ul>
+    <li>Assistir 10 anúncios → libera download diário do pacote</li>
+    <li>Uso máximo 24h → depois pacote apagado, sem conexão com TV</li>
+  </ul>
+  <button class="btn-download" onclick="alert('Simulação: baixar pacote diário grátis')">Baixar Pacote Diário</button>
+</div>
 
 <footer>
   © 2025 AngoTV
 </footer>
+
+<script>
+  function showSection(sectionId) {
+    // Esconde todas as seções
+    document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
+    // Mostra a seção escolhida
+    document.getElementById(sectionId).style.display = 'block';
+    // Scroll para a seção
+    document.getElementById(sectionId).scrollIntoView({behavior: "smooth"});
+  }
+</script>
 
 </body>
 </html>
