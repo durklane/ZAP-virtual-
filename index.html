@@ -1,139 +1,154 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-  <meta charset="UTF-8">
-  <title>AngoTV</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>AngoTV</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #000;
-      color: #fff;
-      text-align: center;
-    }
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #000;
+  color: #fff;
+  text-align: center;
+}
 
-    header {
-      background: #111;
-      padding: 20px;
-    }
+header {
+  background: #111;
+  padding: 20px;
+}
 
-    h1 {
-      margin: 0;
-      color: red;
-    }
+h1 { margin: 0; color: red; }
 
-    .top-btn {
-      display: inline-block;
-      margin: 10px;
-      padding: 12px 25px;
-      background: red;
-      color: #fff;
-      text-decoration: none;
-      border-radius: 8px;
-      font-size: 16px;
-      cursor: pointer;
-    }
+.top-btn {
+  display: inline-block;
+  margin: 10px;
+  padding: 12px 25px;
+  background: red;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+}
 
-    .section {
-      display: none;
-      padding: 20px;
-      text-align: left;
-      max-width: 600px;
-      margin: 0 auto;
-      background: #111;
-      border-radius: 8px;
-      margin-bottom: 20px;
-    }
+.section {
+  display: none;
+  padding: 20px;
+  text-align: left;
+  max-width: 600px;
+  margin: 0 auto 20px auto;
+  background: #111;
+  border-radius: 8px;
+}
 
-    h2 {
-      color: #ff4500;
-    }
+h2 { color: #ff4500; }
 
-    .btn-download {
-      display: inline-block;
-      margin-top: 10px;
-      padding: 10px 20px;
-      background: orange;
-      color: #000;
-      border-radius: 6px;
-      text-decoration: none;
-      cursor: pointer;
-    }
+.plan-btn {
+  display: inline-block;
+  margin: 5px;
+  padding: 10px 20px;
+  background: orange;
+  color: #000;
+  border-radius: 6px;
+  text-decoration: none;
+  cursor: pointer;
+}
 
-    .anuncio {
-      background: #111;
-      margin: 20px;
-      padding: 15px;
-      border-radius: 8px;
-      text-align: center;
-    }
+.anuncio {
+  background: #111;
+  margin: 20px;
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+}
 
-    .anuncio img {
-      max-width: 100%;
-      border-radius: 6px;
-    }
+.anuncio img { max-width: 100%; border-radius: 6px; }
 
-    footer {
-      background: #111;
-      padding: 15px;
-      font-size: 14px;
-    }
-  </style>
+footer {
+  background: #111;
+  padding: 15px;
+  font-size: 14px;
+}
+.ad-visualizados {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #aaa;
+}
+</style>
 </head>
 <body>
 
 <header>
-  <h1>📺 AngoTV</h1>
-  <p>Entretenimento angolano onde estiver</p>
-  <div>
-    <button class="top-btn" onclick="showSection('pro')">Planos Pro</button>
-    <button class="top-btn" onclick="showSection('gratis')">Planos Grátis</button>
-  </div>
+<h1>📺 AngoTV</h1>
+<p>Entretenimento angolano onde estiver</p>
+<div>
+  <button class="top-btn" onclick="showSection('pro')">Planos Pro</button>
+  <button class="top-btn" onclick="showSection('gratis')">Planos Grátis</button>
+</div>
 </header>
 
-<!-- ANÚNCIO -->
 <div class="anuncio">
-  <p>Publicidade</p>
-  <a href="https://wa.me/244921445905" target="_blank">
-    <img src="https://via.placeholder.com/320x100?text=Anuncie+no+AngoTV" alt="Anúncio AngoTV">
-  </a>
+<p>Publicidade</p>
+<a href="https://wa.me/244921445905" target="_blank">
+  <img src="https://via.placeholder.com/320x100?text=Anuncie+no+AngoTV" alt="Anúncio AngoTV">
+</a>
 </div>
 
 <!-- SEÇÃO PLANOS PRO -->
 <div id="pro" class="section">
-  <h2>Planos Pro</h2>
-  <ul>
-    <li><b>1.500 kz/mês</b> → Offline 30 dias, download diário, 1GB, até 3 pacotes de 50 vídeos.</li>
-    <li><b>3.000 kz/mês</b> → Offline 30 dias, download diário, 5GB, até 20 pacotes de 50 vídeos.</li>
-  </ul>
-  <button class="btn-download" onclick="alert('Simulação: baixar pacote diário')">Baixar Pacote Diário</button>
+<h2>Planos Pro</h2>
+<button class="plan-btn" onclick="pagarPlano(1500)">Pagar 1.500 kz</button>
+<button class="plan-btn" onclick="pagarPlano(3000)">Pagar 3.000 kz</button>
+<div id="pro-info"></div>
 </div>
 
 <!-- SEÇÃO PLANOS GRÁTIS -->
 <div id="gratis" class="section">
-  <h2>Planos Grátis</h2>
-  <ul>
-    <li>Assistir 10 anúncios → libera download diário do pacote</li>
-    <li>Uso máximo 24h → depois pacote apagado, sem conexão com TV</li>
-  </ul>
-  <button class="btn-download" onclick="alert('Simulação: baixar pacote diário grátis')">Baixar Pacote Diário</button>
+<h2>Planos Grátis</h2>
+<p>Assistir 10 anúncios → libera download diário do pacote</p>
+<p>Uso máximo 24h → depois pacote apagado, sem conexão com TV</p>
+<button class="plan-btn" onclick="verAnuncio()">Assistir Anúncio</button>
+<div class="ad-visualizados">Anúncios visualizados: <span id="adsCount">0</span>/10</div>
+<div id="gratis-pacotes"></div>
 </div>
 
-<footer>
-  © 2025 AngoTV
-</footer>
+<footer>© 2025 AngoTV</footer>
 
 <script>
-  function showSection(sectionId) {
-    // Esconde todas as seções
-    document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
-    // Mostra a seção escolhida
-    document.getElementById(sectionId).style.display = 'block';
-    // Scroll para a seção
-    document.getElementById(sectionId).scrollIntoView({behavior: "smooth"});
+let adsViewed = 0;
+
+function showSection(sectionId) {
+  document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
+  document.getElementById(sectionId).style.display = 'block';
+  document.getElementById(sectionId).scrollIntoView({behavior: "smooth"});
+}
+
+function pagarPlano(valor) {
+  let iban = prompt(`Você escolheu pagar ${valor} kz. Por favor, envie seu IBAN para receber instruções de pagamento:`);
+  if(iban) {
+    document.getElementById('pro-info').innerHTML = `IBAN enviado: <b>${iban}</b>. Após confirmação do pagamento, o seu plano será ativado.`;
+  } else {
+    alert("IBAN não enviado. Operação cancelada.");
   }
+}
+
+function verAnuncio() {
+  if(adsViewed < 10) {
+    adsViewed++;
+    document.getElementById('adsCount').innerText = adsViewed;
+    alert("Anúncio concluído. Continue assistindo para liberar pacote diário.");
+    // muda a cor da seção conforme progresso
+    let section = document.getElementById('gratis');
+    section.style.backgroundColor = `rgb(${17+adsViewed*8},17,17)`;
+    if(adsViewed === 10) {
+      document.getElementById('gratis-pacotes').innerHTML = "<b>PACOTE DIÁRIO LIBERADO!</b>";
+    }
+  } else {
+    alert("Você já completou os anúncios do dia. Pacote diário liberado!");
+  }
+}
 </script>
 
 </body>
