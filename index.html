@@ -22,15 +22,14 @@ header {
 h1 { margin: 0; color: red; }
 
 .top-btn {
-  display: inline-block;
   margin: 10px;
   padding: 12px 25px;
   background: red;
   color: #fff;
-  text-decoration: none;
   border-radius: 8px;
   font-size: 16px;
   cursor: pointer;
+  border: none;
 }
 
 .section {
@@ -38,80 +37,63 @@ h1 { margin: 0; color: red; }
   padding: 20px;
   text-align: left;
   max-width: 600px;
-  margin: 0 auto 20px auto;
+  margin: 20px auto;
   background: #111;
   border-radius: 8px;
 }
 
-h2 { color: #ff4500; }
+h2 { color: orange; }
 
 .plan-btn {
-  display: inline-block;
-  margin: 5px;
+  margin: 5px 0;
   padding: 10px 20px;
   background: orange;
   color: #000;
   border-radius: 6px;
-  text-decoration: none;
   cursor: pointer;
+  border: none;
 }
 
-.anuncio {
-  background: #111;
-  margin: 20px;
-  padding: 15px;
-  border-radius: 8px;
-  text-align: center;
-}
-
-.anuncio img { max-width: 100%; border-radius: 6px; }
-
-footer {
-  background: #111;
-  padding: 15px;
-  font-size: 14px;
-}
-.ad-visualizados {
+input[type="file"] {
   margin-top: 10px;
-  font-size: 14px;
-  color: #aaa;
+  color: #fff;
+}
+
+img {
+  max-width: 100%;
+  margin-top: 10px;
+  border-radius: 6px;
+  display: none;
 }
 </style>
 </head>
+
 <body>
 
 <header>
 <h1>📺 AngoTV</h1>
 <p>Entretenimento angolano onde estiver</p>
-<div>
-  <button class="top-btn" onclick="showSection('pro')">Planos Pro</button>
-  <button class="top-btn" onclick="showSection('gratis')">Planos Grátis</button>
-</div>
+<button class="top-btn" onclick="showSection('pro')">Planos Pro</button>
+<button class="top-btn" onclick="showSection('gratis')">Planos Grátis</button>
 </header>
 
-<div class="anuncio">
-<p>Publicidade</p>
-<a href="https://wa.me/244921445905" target="_blank">
-  <img src="https://via.placeholder.com/320x100?text=Anuncie+no+AngoTV" alt="Anúncio AngoTV">
-</a>
-</div>
-
-<!-- SEÇÃO PLANOS PRO -->
+<!-- PLANOS PRO -->
 <div id="pro" class="section">
 <h2>Planos Pro</h2>
-<button class="plan-btn" onclick="pagarPlano(1500)">Pagar 1.500 kz</button>
-<button class="plan-btn" onclick="pagarPlano(3000)">Pagar 3.000 kz</button>
-<div id="pro-info"></div>
+
+<button class="plan-btn" onclick="mostrarPagamento(1500)">Pagar 1.500 kz</button>
+<button class="plan-btn" onclick="mostrarPagamento(3000)">Pagar 3.000 kz</button>
+
+<div id="pagamento-info"></div>
 </div>
 
-<!-- SEÇÃO PLANOS GRÁTIS -->
+<!-- PLANOS GRÁTIS -->
 <div id="gratis" class="section">
-<h2>Planos Grátis</h2>
-<p>Assistir 10 anúncios → libera download diário do pacote</p>
-<p>Uso máximo 24h → depois pacote apagado, sem conexão com TV</p>
+<h2>Plano Grátis</h2>
+<p>Assistir 10 anúncios para liberar pacote diário</p>
 <button class="plan-btn" onclick="verAnuncio()">Assistir Anúncio</button>
-<div class="ad-visualizados">Anúncios visualizados: <span id="adsCount">0</span>/10</div>
-<div id="gratis-pacotes"></div>
+<p>Anúncios vistos: <span id="adsCount">0</span>/10</p>
+<p id="gratis-status"></p>
 </div>
 
 <footer>© 2025 AngoTV</footer>
@@ -119,34 +101,43 @@ footer {
 <script>
 let adsViewed = 0;
 
-function showSection(sectionId) {
+function showSection(id) {
   document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
-  document.getElementById(sectionId).style.display = 'block';
-  document.getElementById(sectionId).scrollIntoView({behavior: "smooth"});
+  document.getElementById(id).style.display = 'block';
 }
 
-function pagarPlano(valor) {
-  let iban = prompt(`Você escolheu pagar ${valor} kz. Por favor, envie seu IBAN para receber instruções de pagamento:`);
-  if(iban) {
-    document.getElementById('pro-info').innerHTML = `IBAN enviado: <b>${iban}</b>. Após confirmação do pagamento, o seu plano será ativado.`;
-  } else {
-    alert("IBAN não enviado. Operação cancelada.");
-  }
+function mostrarPagamento(valor) {
+  document.getElementById("pagamento-info").innerHTML = `
+    <hr>
+    <p><b>Valor:</b> ${valor} kz</p>
+    <p><b>Nome:</b> Durk Lanez</p>
+    <p><b>IBAN:</b> AO06 0000 0000 0000 0000 0000 0</p>
+    <p>Depois de transferir, envie o comprovativo:</p>
+
+    <input type="file" accept="image/*" onchange="mostrarImagem(event)">
+    <img id="preview">
+    <p id="status-pagamento"></p>
+  `;
+}
+
+function mostrarImagem(event) {
+  const img = document.getElementById("preview");
+  img.src = URL.createObjectURL(event.target.files[0]);
+  img.style.display = "block";
+
+  document.getElementById("status-pagamento").innerHTML =
+    "✅ Comprovativo enviado. Aguardando confirmação do administrador.";
 }
 
 function verAnuncio() {
-  if(adsViewed < 10) {
+  if (adsViewed < 10) {
     adsViewed++;
-    document.getElementById('adsCount').innerText = adsViewed;
-    alert("Anúncio concluído. Continue assistindo para liberar pacote diário.");
-    // muda a cor da seção conforme progresso
-    let section = document.getElementById('gratis');
-    section.style.backgroundColor = `rgb(${17+adsViewed*8},17,17)`;
-    if(adsViewed === 10) {
-      document.getElementById('gratis-pacotes').innerHTML = "<b>PACOTE DIÁRIO LIBERADO!</b>";
+    document.getElementById("adsCount").innerText = adsViewed;
+
+    if (adsViewed === 10) {
+      document.getElementById("gratis-status").innerHTML =
+        "🎉 Pacote diário liberado por 24 horas!";
     }
-  } else {
-    alert("Você já completou os anúncios do dia. Pacote diário liberado!");
   }
 }
 </script>
