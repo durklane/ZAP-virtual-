@@ -6,154 +6,185 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:#000;
-  color:#fff;
-  text-align:center;
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #000;
+  color: #fff;
+  text-align: center;
 }
 
-header{
-  background:#111;
-  padding:20px;
+header {
+  background: #111;
+  padding: 20px;
 }
 
-h1{color:red;margin:0}
+h1 { color: red; margin: 0; }
 
-.btn{
-  background:red;
-  color:#fff;
-  border:none;
-  padding:14px 28px;
-  border-radius:10px;
-  margin:10px;
-  font-size:16px;
-  cursor:pointer;
+button {
+  padding: 12px 25px;
+  margin: 10px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
 }
 
-.section{
-  display:none;
-  max-width:700px;
-  margin:20px auto;
-  background:#111;
-  padding:20px;
-  border-radius:12px;
-  text-align:left;
+.btn-red { background: red; color: #fff; }
+.btn-orange { background: orange; color: #000; }
+.btn-green { background: #00c853; color: #000; }
+
+.section {
+  display: none;
+  max-width: 700px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #111;
+  border-radius: 10px;
+  text-align: left;
 }
 
-.orange{background:orange;color:#000}
+.center { text-align: center; }
 
-input[type=file]{margin-top:10px;color:#fff}
-
-img{max-width:100%;border-radius:8px;margin-top:10px}
-
-.card{
-  background:#1a1a1a;
-  padding:15px;
-  border-radius:10px;
-  margin:10px 0;
-  cursor:pointer;
+input[type="file"] {
+  margin-top: 10px;
+  color: #fff;
 }
 
-footer{
-  background:#111;
-  padding:15px;
-  margin-top:30px;
+img {
+  max-width: 100%;
+  border-radius: 8px;
+  margin-top: 10px;
+  display: none;
+}
+
+/* TELA ASSISTIR */
+#assistir {
+  background: #050505;
+}
+
+.cards {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.card {
+  width: 180px;
+  background: #1a1a1a;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.card h3 {
+  color: orange;
 }
 </style>
 </head>
 
 <body>
 
-<!-- HEADER -->
-<header>
-<h1>📺 AngoTV</h1>
-<p>Entretenimento angolano onde estiver</p>
-<button class="btn" onclick="mostrar('pro')">Planos Pro</button>
-<button class="btn" onclick="mostrar('gratis')">Planos Grátis</button>
+<header id="topo">
+  <h1>📺 AngoTV</h1>
+  <p>Entretenimento angolano onde estiver</p>
+  <button class="btn-red" onclick="abrir('pro')">Plano Pro</button>
+  <button class="btn-red" onclick="abrir('gratis')">Plano Grátis</button>
 </header>
 
-<!-- PLANOS PRO -->
+<!-- PLANO PRO -->
 <div id="pro" class="section">
-<h2>💎 Plano Pro</h2>
-
-<button class="btn orange" onclick="pagar(1500)">Pagar 1.500 kz</button>
-<button class="btn orange" onclick="pagar(3000)">Pagar 3.000 kz</button>
-
-<div id="pagamento"></div>
+  <h2>Plano Pro</h2>
+  <button class="btn-orange" onclick="pagamento(1500)">Pagar 1.500 kz</button>
+  <button class="btn-orange" onclick="pagamento(3000)">Pagar 3.000 kz</button>
+  <div id="pagamento"></div>
 </div>
 
-<!-- PLANOS GRÁTIS -->
+<!-- PLANO GRÁTIS -->
 <div id="gratis" class="section">
-<h2>🎁 Plano Grátis</h2>
-<p>Assista 10 anúncios para liberar pacote diário</p>
-
-<button class="btn orange" onclick="verAnuncio()">Assistir Anúncio</button>
-<p>Anúncios vistos: <b><span id="ads">0</span>/10</b></p>
-
-<div id="gratisStatus"></div>
+  <h2>Plano Grátis</h2>
+  <p>Assistir 10 anúncios para liberar</p>
+  <button class="btn-orange" onclick="verAnuncio()">Assistir Anúncio</button>
+  <p>Anúncios: <span id="ads">0</span>/10</p>
+  <div id="gratisStatus"></div>
 </div>
 
-<!-- TELA DE CONTEÚDO -->
-<div id="conteudo" class="section" style="background:#0b0b0b">
-<h2>📂 Conteúdo Disponível</h2>
+<!-- TELA ASSISTIR -->
+<div id="assistir" class="section center">
+  <h2>🎬 Escolha o Conteúdo</h2>
 
-<div class="card">🎬 Filme 1</div>
-<div class="card">🎬 Filme 2</div>
+  <div class="cards">
+    <div class="card">
+      <h3>🎥 Filmes</h3>
+      <p>Ação, Drama, Comédia</p>
+    </div>
 
-<div class="card">📺 Série 1 – Episódio 1</div>
-<div class="card">📺 Série 2 – Episódio 1</div>
+    <div class="card">
+      <h3>📺 Séries</h3>
+      <p>Nacionais & Internacionais</p>
+    </div>
 
-<div class="card">🧒 Desenho 1</div>
-<div class="card">🧒 Desenho 2</div>
+    <div class="card">
+      <h3>🧸 Desenhos</h3>
+      <p>Para crianças</p>
+    </div>
+  </div>
 
-<p style="color:#aaa">Conteúdo disponível conforme o plano</p>
+  <p style="margin-top:20px;color:#aaa">
+    (Aqui depois você liga com servidor próprio ou API)
+  </p>
 </div>
 
-<footer>© 2025 AngoTV</footer>
+<footer style="background:#111;padding:15px">
+© 2025 AngoTV
+</footer>
 
 <script>
 let ads = 0;
 
-function mostrar(id){
-  document.querySelectorAll('.section').forEach(s=>s.style.display='none');
-  document.getElementById(id).style.display='block';
-  window.scrollTo(0,0);
+function abrir(id) {
+  document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
+  document.getElementById(id).style.display = 'block';
 }
 
-function pagar(valor){
+function pagamento(valor) {
   document.getElementById("pagamento").innerHTML = `
     <hr>
+    <p><b>Valor:</b> ${valor} kz</p>
     <p><b>Nome:</b> Durk Lanez</p>
     <p><b>IBAN:</b> AO06 0000 0000 0000 0000 0000 0</p>
-    <p>Valor: <b>${valor} kz</b></p>
     <p>Envie o comprovativo:</p>
-    <input type="file" accept="image/*" onchange="confirmarPagamento(event)">
-    <p id="payStatus"></p>
+    <input type="file" accept="image/*" onchange="comprovativo(event)">
+    <img id="imgComp">
   `;
 }
 
-function confirmarPagamento(e){
-  document.getElementById("payStatus").innerHTML =
-  "✅ Comprovativo enviado.<br><br><button class='btn' onclick='abrirConteudo()'>▶ Assistir Conteúdo</button>";
+function comprovativo(e) {
+  let img = document.getElementById("imgComp");
+  img.src = URL.createObjectURL(e.target.files[0]);
+  img.style.display = "block";
+
+  setTimeout(() => {
+    entrarAssistir();
+  }, 1500);
 }
 
-function verAnuncio(){
-  if(ads < 10){
+function verAnuncio() {
+  if (ads < 10) {
     ads++;
     document.getElementById("ads").innerText = ads;
-    if(ads === 10){
+    if (ads === 10) {
       document.getElementById("gratisStatus").innerHTML =
-      "🎉 Pacote liberado por 24h<br><br><button class='btn' onclick='abrirConteudo()'>▶ Assistir Conteúdo</button>";
+        "<p style='color:#00c853'>Pacote liberado!</p>";
+      entrarAssistir();
     }
   }
 }
 
-function abrirConteudo(){
-  document.querySelectorAll('.section').forEach(s=>s.style.display='none');
-  document.getElementById("conteudo").style.display='block';
-  window.scrollTo(0,0);
+function entrarAssistir() {
+  document.getElementById("topo").style.display = "none";
+  document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
+  document.getElementById("assistir").style.display = "block";
 }
 </script>
 
