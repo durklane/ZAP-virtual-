@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt">
 <head>
@@ -11,74 +12,77 @@ body {
   font-family: Arial, sans-serif;
   background: #000;
   color: #fff;
-  text-align: center;
 }
 
 header {
   background: #111;
-  padding: 20px;
+  padding: 25px;
+  text-align: center;
 }
 
 h1 { color: red; margin: 0; }
 
 .top-btn {
   margin: 10px;
-  padding: 12px 25px;
+  padding: 14px 28px;
   background: red;
   color: #fff;
-  border-radius: 8px;
-  font-size: 16px;
-  cursor: pointer;
   border: none;
+  border-radius: 10px;
+  font-size: 16px;
 }
 
 .section {
   display: none;
   padding: 20px;
-  max-width: 700px;
+  max-width: 650px;
   margin: 20px auto;
   background: #111;
-  border-radius: 10px;
-  text-align: left;
+  border-radius: 12px;
 }
 
 h2 { color: orange; }
 
 .plan-btn {
   width: 100%;
+  padding: 14px;
   margin: 8px 0;
-  padding: 12px;
   background: orange;
   color: #000;
-  border-radius: 6px;
-  cursor: pointer;
   border: none;
+  border-radius: 10px;
   font-size: 16px;
 }
 
-input[type="file"] {
-  margin-top: 10px;
+.assistir-btn {
+  width: 100%;
+  padding: 16px;
+  margin-top: 15px;
+  background: red;
   color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-size: 18px;
+}
+
+.card {
+  background: #1a1a1a;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 10px;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  background: #111;
+  color: #777;
 }
 
 img {
   max-width: 100%;
+  border-radius: 8px;
   margin-top: 10px;
-  border-radius: 6px;
-  display: none;
-}
-
-.serie {
-  background: #1a1a1a;
-  padding: 10px;
-  margin: 10px 0;
-  border-radius: 6px;
-}
-
-footer {
-  background: #111;
-  padding: 15px;
-  font-size: 14px;
 }
 </style>
 </head>
@@ -88,77 +92,80 @@ footer {
 <header>
 <h1>📺 AngoTV</h1>
 <p>Entretenimento angolano onde estiver</p>
+
 <button class="top-btn" onclick="showSection('pro')">Planos Pro</button>
 <button class="top-btn" onclick="showSection('gratis')">Planos Grátis</button>
 </header>
 
 <!-- PLANOS PRO -->
 <div id="pro" class="section">
-<h2>Planos Pro</h2>
+<h2>Plano Pro</h2>
 
-<button class="plan-btn" onclick="mostrarPagamento(1500)">Pagar 1.500 kz</button>
-<button class="plan-btn" onclick="mostrarPagamento(3000)">Pagar 3.000 kz</button>
+<button class="plan-btn" onclick="pagarPlano(1500)">💳 Pagar 1.500 kz</button>
+<button class="plan-btn" onclick="pagarPlano(3000)">💳 Pagar 3.000 kz</button>
 
 <div id="pagamento-info"></div>
 </div>
 
-<!-- PLANOS GRÁTIS -->
+<!-- PLANO GRÁTIS -->
 <div id="gratis" class="section">
 <h2>Plano Grátis</h2>
-<p>Assistir 10 anúncios para liberar pacote diário</p>
+<p>Assista 10 anúncios para liberar o pacote diário</p>
 
-<button class="plan-btn" onclick="verAnuncio()">Assistir Anúncio</button>
-
+<button class="plan-btn" onclick="verAnuncio()">▶ Assistir Anúncio</button>
 <p>Anúncios vistos: <b><span id="adsCount">0</span>/10</b></p>
-<p id="gratis-status"></p>
+
+<div id="gratis-status"></div>
 </div>
 
-<!-- ÁREA DE SÉRIES -->
-<div id="series" class="section">
-<h2>📂 Séries Disponíveis</h2>
+<!-- CONTEÚDOS -->
+<div id="conteudos" class="section">
+<h2>🎬 Conteúdos Disponíveis</h2>
 
-<div class="serie">🎬 Série 1 – Episódio 1</div>
-<div class="serie">🎬 Série 2 – Episódio 1</div>
-<div class="serie">🎬 Série 3 – Episódio 1</div>
+<div class="card">🎞️ Filme 1 – Ação</div>
+<div class="card">🎞️ Filme 2 – Drama</div>
 
-<p style="color:#aaa">Conteúdo disponível conforme o seu plano</p>
+<div class="card">📺 Série 1 – Episódio 1</div>
+<div class="card">📺 Série 2 – Episódio 1</div>
+
+<div class="card">🧒 Desenho 1</div>
+<div class="card">🧒 Desenho 2</div>
 </div>
 
 <footer>© 2025 AngoTV</footer>
 
 <script>
 let adsViewed = 0;
+let acessoLiberado = false;
 
 function showSection(id) {
   document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
   document.getElementById(id).style.display = 'block';
 }
 
-function mostrarPagamento(valor) {
+function pagarPlano(valor) {
   document.getElementById("pagamento-info").innerHTML = `
     <hr>
     <p><b>Valor:</b> ${valor} kz</p>
     <p><b>Nome:</b> Durk Lanez</p>
     <p><b>IBAN:</b> AO06 0000 0000 0000 0000 0000 0</p>
-    <p>Envie o comprovativo de pagamento:</p>
 
-    <input type="file" accept="image/*" onchange="mostrarImagem(event)">
+    <p>Envie o comprovativo:</p>
+    <input type="file" accept="image/*" onchange="confirmarPagamento(event)">
     <img id="preview">
-    <p id="status-pagamento"></p>
   `;
 }
 
-function mostrarImagem(event) {
+function confirmarPagamento(event) {
   const img = document.getElementById("preview");
   img.src = URL.createObjectURL(event.target.files[0]);
   img.style.display = "block";
 
-  document.getElementById("status-pagamento").innerHTML =
-    "✅ Comprovativo enviado. Plano ativado.";
+  acessoLiberado = true;
 
-  setTimeout(() => {
-    showSection("series");
-  }, 1500);
+  document.getElementById("pagamento-info").innerHTML += `
+    <button class="assistir-btn" onclick="abrirConteudos()">🎬 Assistir Conteúdos</button>
+  `;
 }
 
 function verAnuncio() {
@@ -167,12 +174,20 @@ function verAnuncio() {
     document.getElementById("adsCount").innerText = adsViewed;
 
     if (adsViewed === 10) {
-      document.getElementById("gratis-status").innerHTML =
-        "🎉 Pacote diário liberado por 24 horas!";
-      setTimeout(() => {
-        showSection("series");
-      }, 1500);
+      acessoLiberado = true;
+      document.getElementById("gratis-status").innerHTML = `
+        🎉 Pacote liberado por 24 horas!
+        <button class="assistir-btn" onclick="abrirConteudos()">🎬 Assistir Conteúdos</button>
+      `;
     }
+  }
+}
+
+function abrirConteudos() {
+  if (acessoLiberado) {
+    showSection('conteudos');
+  } else {
+    alert("Acesso não liberado.");
   }
 }
 </script>
